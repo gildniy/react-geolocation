@@ -24,7 +24,11 @@ export const usePosition = () => {
             setError('Geolocation is not supported');
             return;
         }
-        let watcher = geo.watchPosition(onChange, onError);
+        let watcher = geo.watchPosition(onChange, onError, {
+            enableHighAccuracy: true,
+            timeout: 20000,
+            maximumAge: 1000
+        });
         return () => geo.clearWatch(watcher);
     }, []);
     return { ...position, error };
